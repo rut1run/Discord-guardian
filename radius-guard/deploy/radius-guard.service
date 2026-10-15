@@ -1,0 +1,26 @@
+[Unit]
+Description=Radius Guard Discord Security and API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=radius-guard
+Group=radius-guard
+WorkingDirectory=/opt/radius-guard
+EnvironmentFile=/etc/radius-guard.env
+ExecStart=/opt/radius-guard/.venv/bin/python server.py
+Restart=always
+RestartSec=10
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/radius-guard
+MemoryMax=256M
+CPUQuota=40%
+TasksMax=64
+
+[Install]
+WantedBy=multi-user.target
